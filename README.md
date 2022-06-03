@@ -12,5 +12,5 @@ Python script for sending webhooks to Slack with current food menu at Krejcárek
 
 ## Usage
 
-* Enter a Slack webhook url in `config.py`
+* Rename `config.py.example` to `config.py` and enter a Slack webhook url in the `webhookEndpoint` variable 
 * Run `python run.py` to receive today's food menu in a Slack channel

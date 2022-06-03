@@ -21,7 +21,7 @@ page = requests.get(url)
 soup = BeautifulSoup(page.content, 'html.parser')
 
 dayNames = ["Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek"]
-dayNamesNums = list(range(2,9)) + list(range(11,18)) + list(range(20,27)) + list(range(29,35)) + list(range(38,44))
+#dayNamesNums = list(range(2,9)) + list(range(11,18)) + list(range(20,27)) + list(range(29,35)) + list(range(38,44))
 day1 = list(range(3,9))
 day2 = list(range(12,18))
 day3 = list(range(21,27))

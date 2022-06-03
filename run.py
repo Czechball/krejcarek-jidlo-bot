@@ -31,42 +31,15 @@ lunches = soup.find("table", {"width" : "709"})
 lunInfos = (lunches.findAll("tr"))
 
 def getDay(dayNum):
-	match dayNum:
-		case 0:
-			foodNames = []
-			foodPrices = []
-			for cells in day1:
-				dayInfo = (lunInfos[cells].text.strip()).split("\n")
-				foodNames.append(dayInfo[1])
-				foodPrices.append(dayInfo[-1])
-		case 1:
-			foodNames = []
-			foodPrices = []
-			for cells in day2:
-				dayInfo = (lunInfos[cells].text.strip()).split("\n")
-				foodNames.append(dayInfo[1])
-				foodPrices.append(dayInfo[-1])
-		case 2:
-			foodNames = []
-			foodPrices = []
-			for cells in day3:
-				dayInfo = (lunInfos[cells].text.strip()).split("\n")
-				foodNames.append(dayInfo[1])
-				foodPrices.append(dayInfo[-1])
-		case 3:
-			foodNames = []
-			foodPrices = []
-			for cells in day4:
-				dayInfo = (lunInfos[cells].text.strip()).split("\n")
-				foodNames.append(dayInfo[1])
-				foodPrices.append(dayInfo[-1])
-		case 4:
-			foodNames = []
-			foodPrices = []
-			for cells in day5:
-				dayInfo = (lunInfos[cells].text.strip()).split("\n")
-				foodNames.append(dayInfo[1])
-				foodPrices.append(dayInfo[-1])
+	day = [day1, day2, day3, day4, day5][dayNum]
+
+	foodNames = [lunInfos[cells].text.strip().split("\n")[1] for cells in day]
+	foodPrices = [lunInfos[cells].text.strip().split("\n")[-1] for cells in day]
+	# print("Food Names: " + str(foodNames))
+	# print("Food Prices: " + str(foodPrices))
+
+
+
 	finalFoodOutput = []
 	finalPriceOutput = []
 	for food in range(0,6):

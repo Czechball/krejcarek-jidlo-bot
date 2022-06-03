@@ -31,50 +31,23 @@ lunches = soup.find("table", {"width" : "709"})
 lunInfos = (lunches.findAll("tr"))
 
 def getDay(dayNum):
-	match dayNum:
-		case 0:
-			foodNames = []
-			foodPrices = []
-			for cells in day1:
-				dayInfo = (lunInfos[cells].text.strip()).split("\n")
-				foodNames.append(dayInfo[1])
-				foodPrices.append(dayInfo[-1])
-		case 1:
-			foodNames = []
-			foodPrices = []
-			for cells in day2:
-				dayInfo = (lunInfos[cells].text.strip()).split("\n")
-				foodNames.append(dayInfo[1])
-				foodPrices.append(dayInfo[-1])
-		case 2:
-			foodNames = []
-			foodPrices = []
-			for cells in day3:
-				dayInfo = (lunInfos[cells].text.strip()).split("\n")
-				foodNames.append(dayInfo[1])
-				foodPrices.append(dayInfo[-1])
-		case 3:
-			foodNames = []
-			foodPrices = []
-			for cells in day4:
-				dayInfo = (lunInfos[cells].text.strip()).split("\n")
-				foodNames.append(dayInfo[1])
-				foodPrices.append(dayInfo[-1])
-		case 4:
-			foodNames = []
-			foodPrices = []
-			for cells in day5:
-				dayInfo = (lunInfos[cells].text.strip()).split("\n")
-				foodNames.append(dayInfo[1])
-				foodPrices.append(dayInfo[-1])
-	finalFoodOutput = []
-	finalPriceOutput = []
-	for food in range(0,6):
-		finalFoodOutput.append(str(food + 1) + ": " + foodNames[food] + "\nCena: " + foodPrices[food])
-		mergedFoodOutput = "\n".join(finalFoodOutput) + "\n".join(finalPriceOutput)
-	return('{}'.format(mergedFoodOutput))
+	day = [day1, day2, day3, day4, day5][dayNum]
+
+	foodNames = [lunInfos[cells].text.strip().split("\n")[1] for cells in day]
+	foodPrices = [lunInfos[cells].text.strip().split("\n")[-1] for cells in day]
+	# print("Food Names: " + str(foodNames))
+	# print("Food Prices: " + str(foodPrices))
+
+	finalFoodOutput = ["{i}: {foodName}\nCena: {foodPrice}".format(i=i+1, foodName=foodNames[i], foodPrice=foodPrices[i]) for i in range(0,6)]
+
+	return('{}'.format(finalFoodOutput))
+
+
+
 currentDayNum = (datetime.datetime.today().weekday())
 hookString = "Jídelníček na " + dayNames[currentDayNum] + ":\n--------\n" + str(getDay(currentDayNum))
+
+
 if 0 <= currentDayNum <= 4:
 	print("Retrieving food menu for day " + str(currentDayNum) + "...")
 	params = '{"text": "' + hookString + '"}'

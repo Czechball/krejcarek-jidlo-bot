@@ -45,28 +45,28 @@ def getDay(dayNum):
 			for cells in day2:
 				dayInfo = (lunInfos[cells].text.strip()).split("\n")
 				foodNames.append(dayInfo[1])
-				foodPrices.append(dayInfo[3])
+				foodPrices.append(dayInfo[-1])
 		case 2:
 			foodNames = []
 			foodPrices = []
 			for cells in day3:
 				dayInfo = (lunInfos[cells].text.strip()).split("\n")
 				foodNames.append(dayInfo[1])
-				foodPrices.append(dayInfo[3])
+				foodPrices.append(dayInfo[-1])
 		case 3:
 			foodNames = []
 			foodPrices = []
 			for cells in day4:
 				dayInfo = (lunInfos[cells].text.strip()).split("\n")
 				foodNames.append(dayInfo[1])
-				foodPrices.append(dayInfo[3])
+				foodPrices.append(dayInfo[-1])
 		case 4:
 			foodNames = []
 			foodPrices = []
 			for cells in day5:
 				dayInfo = (lunInfos[cells].text.strip()).split("\n")
 				foodNames.append(dayInfo[1])
-				foodPrices.append(dayInfo[3])
+				foodPrices.append(dayInfo[-1])
 	finalFoodOutput = []
 	finalPriceOutput = []
 	for food in range(0,6):

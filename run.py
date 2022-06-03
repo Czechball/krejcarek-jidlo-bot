@@ -75,11 +75,13 @@ def getDay(dayNum):
 	return('{}'.format(mergedFoodOutput))
 currentDayNum = (datetime.datetime.today().weekday())
 hookString = "Jídelníček na " + dayNames[currentDayNum] + ":\n--------\n" + str(getDay(currentDayNum))
-print(hookString)
-
-params = '{"text": "' + hookString + '"}'
-webhook = requests.post(url = endpoint, data = params.encode('utf-8'))
-print(webhook)
+if 0 <= currentDayNum <= 4:
+	print("Retrieving food menu for day " + str(currentDayNum) + "...")
+	params = '{"text": "' + hookString + '"}'
+	webhook = requests.post(url = endpoint, data = params.encode('utf-8'))
+	print(webhook)
+else:
+	print("Day " + str(currentDayNum) + " is not a workday, skipping")
 
 ## Unused function for retrieving current date from canteen website, might use in future
 

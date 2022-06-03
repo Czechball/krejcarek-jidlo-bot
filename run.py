@@ -8,15 +8,17 @@ import config
 url = config.foodUrl
 endpoint = config.webhookEndpoint
 
-with open("jidlo.html","r") as file:
-	page = file.read()
+## Debug for local development ##
 
-# #page = requests.get(url)
+#with open("jidlo.html","r") as file:
+#	page = file.read()
 # file = open("jidlo.html")
 # page = file.read()
 # file.close()
-#soup = BeautifulSoup(page.content, 'html.parser')
-soup = BeautifulSoup(page, 'html.parser')
+#soup = BeautifulSoup(page, 'html.parser')
+
+page = requests.get(url)
+soup = BeautifulSoup(page.content, 'html.parser')
 
 dayNames = ["Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek"]
 dayNamesNums = list(range(2,9)) + list(range(11,18)) + list(range(20,27)) + list(range(29,35)) + list(range(38,44))
@@ -70,7 +72,6 @@ def getDay(dayNum):
 	for food in range(0,6):
 		finalFoodOutput.append(str(food + 1) + ": " + foodNames[food] + "\nCena: " + foodPrices[food])
 		mergedFoodOutput = "\n".join(finalFoodOutput) + "\n".join(finalPriceOutput)
- 		#return("Jídlo "+str(food + 1),":\n",foodNames[food],"\nCena: ",foodPrices[food])
 	return('{}'.format(mergedFoodOutput))
 currentDayNum = (datetime.datetime.today().weekday())
 hookString = "Jídelníček na " + dayNames[currentDayNum] + ":\n--------\n" + str(getDay(currentDayNum))
@@ -80,11 +81,11 @@ params = '{"text": "' + hookString + '"}'
 webhook = requests.post(url = endpoint, data = params.encode('utf-8'))
 print(webhook)
 
+## Unused function for retrieving current date from canteen website, might use in future
+
 def getCurrentDate():
 
-	#date = soup.findAll('strong')[7].text
 	date = soup.find(style='text-align: center;', width='579').text
 	return date
 
 currentDate = getCurrentDate()
-#print(currentDate)

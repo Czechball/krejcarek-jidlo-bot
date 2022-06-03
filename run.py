@@ -38,16 +38,16 @@ def getDay(dayNum):
 	# print("Food Names: " + str(foodNames))
 	# print("Food Prices: " + str(foodPrices))
 
+	finalFoodOutput = ["{i}: {foodName}\nCena: {foodPrice}".format(i=i+1, foodName=foodNames[i], foodPrice=foodPrices[i]) for i in range(0,6)]
+
+	return('{}'.format(finalFoodOutput))
 
 
-	finalFoodOutput = []
-	finalPriceOutput = []
-	for food in range(0,6):
-		finalFoodOutput.append(str(food + 1) + ": " + foodNames[food] + "\nCena: " + foodPrices[food])
-		mergedFoodOutput = "\n".join(finalFoodOutput) + "\n".join(finalPriceOutput)
-	return('{}'.format(mergedFoodOutput))
+
 currentDayNum = (datetime.datetime.today().weekday())
 hookString = "Jídelníček na " + dayNames[currentDayNum] + ":\n--------\n" + str(getDay(currentDayNum))
+
+
 if 0 <= currentDayNum <= 4:
 	print("Retrieving food menu for day " + str(currentDayNum) + "...")
 	params = '{"text": "' + hookString + '"}'

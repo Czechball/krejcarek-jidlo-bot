@@ -5,8 +5,16 @@ import unidecode
 import datetime
 import config
 
+currentDayNum = (datetime.datetime.today().weekday())
+
 url = config.foodUrl
 endpoint = config.webhookEndpoint
+
+if 0 <= currentDayNum <= 4:
+	print("Retrieving food menu for day " + str(currentDayNum) + "...")
+else:
+	print("Day " + str(currentDayNum + 1) + " is not a workday, skipping")
+	exit()
 
 ## Debug for local development ##
 
@@ -35,10 +43,6 @@ def getDay(dayNum):
 
 	foodNames = [lunInfos[cells].text.strip().split("\n")[1] for cells in day]
 	foodPrices = [lunInfos[cells].text.strip().split("\n")[-1] for cells in day]
-	# print("Food Names: " + str(foodNames))
-	# print("Food Prices: " + str(foodPrices))
-
-
 
 	finalFoodOutput = []
 	finalPriceOutput = []
@@ -46,15 +50,10 @@ def getDay(dayNum):
 		finalFoodOutput.append(str(food + 1) + ": " + foodNames[food] + "\nCena: " + foodPrices[food])
 		mergedFoodOutput = "\n".join(finalFoodOutput) + "\n".join(finalPriceOutput)
 	return('{}'.format(mergedFoodOutput))
-currentDayNum = (datetime.datetime.today().weekday())
+
 hookString = "Jídelníček na " + dayNames[currentDayNum] + ":\n--------\n" + str(getDay(currentDayNum))
-if 0 <= currentDayNum <= 4:
-	print("Retrieving food menu for day " + str(currentDayNum) + "...")
-	params = '{"text": "' + hookString + '"}'
-	webhook = requests.post(url = endpoint, data = params.encode('utf-8'))
-	print(webhook)
-else:
-	print("Day " + str(currentDayNum) + " is not a workday, skipping")
+params = '{"text": "' + hookString + '"}'
+webhook = requests.post(url = endpoint, data = params.encode('utf-8'))
 
 ## Unused function for retrieving current date from canteen website, might use in future
 

@@ -1,3 +1,5 @@
+# coding=utf-8
+
 import sys
 import requests
 from bs4 import BeautifulSoup
@@ -11,7 +13,7 @@ url = config.foodUrl
 endpoint = config.webhookEndpoint
 
 if 0 <= currentDayNum <= 4:
-	print("Retrieving food menu for day " + str(currentDayNum) + "...")
+	print("Retrieving food menu for day " + str(currentDayNum + 1) + "...")
 else:
 	print("Day " + str(currentDayNum + 1) + " is not a workday, skipping")
 	exit()
